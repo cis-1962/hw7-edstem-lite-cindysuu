@@ -30,8 +30,15 @@ router.post('/login', async (req, res) => {
 
 // Logout route
 router.post('/logout', requireAuth, (req, res) => {
-    req.session = null;
-    res.send('Logged out successfully');
+    // req.session = null;
+    // res.send('Logged out successfully');
+    req.session.destroy((err) => {
+        if (err) {
+            // handle error (optional)
+            return res.status(500).send('Failed to log out');
+        }
+        res.send('Logged out successfully');
+    });
 })
 
 export default router;
