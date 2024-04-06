@@ -1,5 +1,11 @@
-// custom-types.d.ts
+// express-types.d.ts
 // import 'cookie-session';
+
+// declare module "cookie-session" {
+//   interface CookieSessionObject {
+//     username?: string;
+//   }
+// }
 
 // declare namespace CookieSessionInterfaces {
 //   interface CookieSessionObject {
@@ -8,6 +14,9 @@
 // }
 
 // custom-types.d.ts
+
+
+
 
 import "express-session";
 

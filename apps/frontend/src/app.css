@@ -1,7 +1,7 @@
 #root {
-  max-width: 1280px;
+  max-width: 1800px;
   margin: 0 auto;
-  padding: 2rem;
+  /* padding: 2rem; */
   text-align: center;
 }
 
@@ -39,4 +39,75 @@
 
 .read-the-docs {
   color: #888;
+}
+
+/* Added CSS */
+.signup-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  /* background-color: #f0f2f5; */
+  font-family: 'Arial', sans-serif;
+}
+
+form {
+  background: white;
+  padding: 2em;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 400px;
+  width: 100%; 
+  box-sizing: border-box; 
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+}
+
+input {
+  padding: 1em;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+input::placeholder {
+  color: #aaa;
+}
+
+button {
+  background-color: #2ecc71;
+  color: #2ecc71;
+  padding: 1em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  background-color: #27ae60;
+}
+
+.link-container {
+  text-align: center;
+  margin-top: 1em;
+}
+
+a {
+  color: #3498db;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
 }
