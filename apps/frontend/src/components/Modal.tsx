@@ -46,27 +46,26 @@ const Modal = ({ isOpen, onClose, children }) => {
     }
   };
 
-  // The backdrop listens for click to close modal,
-  // but now with proper role, tabIndex, and keyboard support
   return (
     <div
       className="modal-backdrop"
       onClick={onClose}
       onKeyDown={handleKeyDown}
-      role="button" // Assign a role indicating this is an interactive element
-      tabIndex={0} // Make it focusable
-      aria-label="Close modal" // Provide an accessible name
+      role="button"
+      tabIndex={0} 
+      aria-label="Close modal" 
     >
-      <div
+    <div
         className="modal-content"
-        onClick={stopPropagation} // Prevent click from closing the modal
-        // Removed tabIndex here as this div isn't directly interactive
-        // No need for role or aria-label as this part isn't an interactive target
-      >
+        onClick={stopPropagation}
+        onKeyDown={handleKeyDown}
+        tabIndex={0}
+        role="button"
+    >
         <button
           className="modal-close-btn"
           onClick={onClose}
-          aria-label="Close" // Clearly label the button's action
+          aria-label="Close"
         >
           ×
         </button>

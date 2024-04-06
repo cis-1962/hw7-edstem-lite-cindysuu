@@ -16,7 +16,7 @@ function SignUp() {
       
     // Do more error handling here
     } catch (error) {
-      alert('Signup failed' + error.message);
+      alert('Signup failed');
     }
   };
 

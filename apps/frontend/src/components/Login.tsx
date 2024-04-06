@@ -13,7 +13,7 @@ function Login() {
       await axios.post('http://localhost:8000/api/account/login', { username, password });
       navigate('/');
     } catch (error) {
-      alert('Login failed: ' + error.message);
+      alert('Login failed');
     }
   };
 
