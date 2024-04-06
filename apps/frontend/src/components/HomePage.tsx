@@ -9,7 +9,7 @@ import Modal from './Modal';
 const fetcher = url => axios.get(url, { withCredentials: true }).then(res => res.data);
 
 const HomePage = () => {
-    const { data: questions} = useSWR('http://localhost:8000/api/questions', fetcher, { refreshInterval: 2000 });
+    const { data: questions, error} = useSWR('http://localhost:8000/api/questions', fetcher, { refreshInterval: 2000 });
     const [loggedIn, setLoggedIn] = useState(true);
     const [username, setUsername] = useState('');
     const [selectedQuestion, setSelectedQuestion] = useState(null);
@@ -102,6 +102,9 @@ const HomePage = () => {
         })
         .catch(error => alert(error));
     };
+
+    if (error) return <div>Failed to load questions</div>;
+    if (!questions) return <div>Loading...</div>;
 
     return (
         <div>

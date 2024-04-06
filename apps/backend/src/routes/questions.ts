@@ -27,7 +27,7 @@ router.post('/add', requireAuth, async (req, res) => {
     }
 });
 
-// Update an anser to a question route
+// Update an answer to a question route
 router.post('/answer', requireAuth, async (req, res) => {
     const { _id, answer } = req.body;
     try {
