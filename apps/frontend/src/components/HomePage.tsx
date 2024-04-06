@@ -1,24 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import useSWR, { mutate } from 'swr';
 import axios from 'axios';
 import '../homepage.css'
 import QuestionItem from './QuestionItem';
 import AnswerSection from './AnswerSection';
 import Modal from './Modal';
 
+const fetcher = url => axios.get(url, { withCredentials: true }).then(res => res.data);
+
 const HomePage = () => {
+    const { data: questions} = useSWR('http://localhost:8000/api/questions', fetcher, { refreshInterval: 2000 });
     const [loggedIn, setLoggedIn] = useState(true);
     const [username, setUsername] = useState('');
-    const [questions, setQuestions] = useState([]);
     const [selectedQuestion, setSelectedQuestion] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [newQuestionText, setNewQuestionText] = useState('');
+    // const [questions, setQuestions] = useState([]);
 
     useEffect(() => {
-        setQuestions([
+        /* setQuestions([
             { id: 1, questionText: 'What is the capital of France?', author: 'John Doe', answer: 'Paris' },
             { id: 2, questionText: 'What is the capital of Italy?', author: 'Jane Doe', answer: 'Rome' },
             { id: 3, questionText: 'What is the capital of Spain?', author: 'John Smith', answer: 'Madrid' }
-        ]);
+        ]); */
         setSelectedQuestion({ id: 1, questionText: 'is canada a country?', author: 'alice', answer: '' });
         setUsername('Alice');
 
@@ -50,13 +54,9 @@ const HomePage = () => {
 
     const handleQuestionSubmit = async (event) => {
         event.preventDefault(); 
-        
         try {
             await axios.post('http://localhost:8000/api/questions/add', { questionText: newQuestionText }, { withCredentials: true });
-            
-            const response = await axios.get('http://localhost:8000/api/questions', { withCredentials: true });
-            setQuestions(response.data); 
-            
+            mutate('http://localhost:8000/api/questions'); // Re-fetch questions
             setIsModalOpen(false); 
             setNewQuestionText('');
         } catch (error) {
@@ -68,11 +68,7 @@ const HomePage = () => {
     const handleAnswerSubmit = async (questionId, answerText) => {
         try {
             await axios.post('http://localhost:8000/api/questions/answer', { _id: questionId, answer: answerText }, { withCredentials: true });
-
-            const response = await axios.get('http://localhost:8000/api/questions', { withCredentials: true });
-            setQuestions(response.data); 
-            
-            setSelectedQuestion(null);
+            mutate('http://localhost:8000/api/questions'); // Re-fetch questions to update the answers
         } catch (error) {
             console.error('Error submitting answer:', error);
             alert('Failed to submit answer.');
